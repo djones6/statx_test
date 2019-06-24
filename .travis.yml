@@ -2,4 +2,6 @@ os: linux
 dist: xenial
 services: docker
 script:
+  - echo "Version of libseccomp:"
+  - dpkg --list | grep libseccomp
   - docker run -v $PWD:/proj swift:5.0.1 /bin/bash -c "cd /proj ; clang test.c -o test ; ./test"
