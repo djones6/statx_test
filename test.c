@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <errno.h>
 // required for statx() system call
 #include <sys/syscall.h>
 #include <sys/types.h>
@@ -22,9 +23,9 @@ int main () {
 	struct statx statx_buffer = {0};
 	ssize_t ret = _statx(AT_FDCWD, filename, AT_SYMLINK_NOFOLLOW | AT_STATX_SYNC_AS_STAT, STATX_ALL, &statx_buffer);
 	if (ret == 0) {
-      		printf("_statx succeeded: %lu\n", ret );
+      		printf("_statx succeeded: %ld, errno: %d\n", ret, errno );
 	} else {
-      		printf("_statx failed: %lu\n", ret );
+      		printf("_statx failed: %ld, errno: %d\n", ret, errno );
 	}
    	return(ret);
 }
